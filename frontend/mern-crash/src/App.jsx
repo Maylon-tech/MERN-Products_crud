@@ -4,9 +4,10 @@ import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import CreatePage from './pages/CreatePage'
-
+import { useProductStore } from './store/product'
 
 function App() {
+  const { products } = useProductStore()
 
   return (
     <Box minH={"100vh"}>

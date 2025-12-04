@@ -1,12 +1,24 @@
-import { Button, Container, Flex, HStack, Text } from "@chakra-ui/react"
+import { Button, Container, Flex, HStack, Text  } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
+
+import { FaCartPlus } from "react-icons/fa"
+import { FaSun } from "react-icons/fa"
+import { FaMoon } from "react-icons/fa"
+import { useState } from "react"
+
 // import { PlusSquareIcon } from '@chakra-ui/icons'
 
 const Navbar = () => {
+  const [colorMode, toggleColorMode] = useState()
+
+
   return (
-    <Container maxW={"1140px"} px={4}>
+    <Container
+      maxW={"1140px"}
+      px={4}
+    >
       <Flex
-        h={6}
+        h={16}
         alignItems={"center"}
         justifyContent={"space-between"}
         flexDir={{
@@ -28,10 +40,16 @@ const Navbar = () => {
         <HStack spacing={2} alignItems={"center"}>
           <Link to={"/create"}>
             <Button>
-              {/* <PlusSquareIcon fontSize={20} /> */}
-              Icon hrere
+              <FaCartPlus />
+              Cart
             </Button>
           </Link>
+
+          <Button onClick={toggleColorMode}>
+            {
+              colorMode === "light" ? <FaSun /> : <FaMoon size="20" />
+            }
+          </Button>
         </HStack>
 
 

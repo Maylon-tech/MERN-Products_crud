@@ -1,8 +1,16 @@
 import Product from "../models/products.js"
 
+export const getAllProducts = async (req, res) => {
+    try {
+        const products = await Product.find({})
+        res.status(200).json({ success: true, data: products })
+    } catch (error) {
+        console.log("Error in fetching products", error.message)
+        res.status(500).json({ success: false, message: "Server Error" })
+    }
+}
 
-
-export const Products = async (req, res) => {
+export const createProduct = async (req, res) => {
     const product = req.body
 
     if (!product.name || !product.price || !product.image) {
@@ -16,6 +24,41 @@ export const Products = async (req, res) => {
         res.status(201).json({ success: true, data: newProduct })
     } catch (error) {
         console.error("Error in create product", error.message)
-        res.status(500).json({ sucess: false, message: "Server Error" })
+        res.status(500).json({ success: false, message: "Server Error" })
     }
+}
+
+export const updateProduct = async (req, res) => {
+    const { id } = req.params
+    const product = req.body
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Invalid Proudct Id" })
+    }
+
+    try {
+        const updateProduct = await Product.findByIdAndUpdate(id, product, {new:true})
+        res.status(200).json({ success: true, message: updateProduct })
+    } catch (error) {
+        console.log("Error deleting product", error.message)
+        res.status(500).json({ success: false, message: "Server Error" })
+    }
+    console.log("id", id)
+}
+
+export const deleteProduct = async (req, res) => {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Invalid Proudct Id" })
+    }
+
+    try {
+        await Product.findByIdAndDelete(id)
+        res.status(200).json({ success: true, message: "Product Deleted"})
+    } catch (error) {
+        console.log("Error deleting product", error.message)
+        res.status(500).json({ success: false, message: "Server Error" })
+    }
+    console.log("id", id)
 }

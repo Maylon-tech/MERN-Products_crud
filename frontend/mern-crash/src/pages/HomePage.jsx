@@ -4,7 +4,7 @@
 const HomePage = () => {
   return (
     <div>
-      HomePage
+      <h1>Home Page of Products MERN </h1>
     </div>
   )
 }

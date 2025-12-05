@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
-import { Box, Button, Container, Heading, Input, VStack } from "@chakra-ui/react"
+import { Box, Button, Container, Heading, Input, useToast, VStack } from "@chakra-ui/react"
 import { FaArrowLeft } from "react-icons/fa"
 import { useState } from "react"
+import { useProductStore } from "../store/product"
 
 const CreatePage = () => {
   const [newProduct, setNewProduct] = useState({
@@ -9,9 +10,27 @@ const CreatePage = () => {
     price: "",
     image: "",
   })
-
-  const handleAddProudct = () => {
-    console.log(newProduct)
+  const toast = useToast()
+  const { createProduct } = useProductStore()
+  const handleAddProudct = async () => {
+    const { success, message } = await createProduct(newProduct)
+    if (!success) {
+      toast({
+        title: "Error",
+        description: message,
+        status: "error",
+      })
+    } else {
+      toast({
+        title: "Success",
+        description: message,
+        status: "success",
+        isClosable: true,
+      })
+    }
+    setNewProduct({ name: "", price: "", image: "" })
+    console.log("Success",success)
+    console.log("Message",message)
   }
 
   return (

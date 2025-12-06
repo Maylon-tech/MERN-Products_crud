@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
-import { Box, Button, Container, Heading, Input, useToast, VStack } from "@chakra-ui/react"
+import { Box, Button, Container, Heading, Input, VStack } from "@chakra-ui/react"
+import { toaster } from "../components/ui/toaster"
 import { FaArrowLeft } from "react-icons/fa"
 import { useState } from "react"
 import { useProductStore } from "../store/product"
@@ -10,18 +11,18 @@ const CreatePage = () => {
     price: "",
     image: "",
   })
-  const toast = useToast()
+
   const { createProduct } = useProductStore()
   const handleAddProudct = async () => {
     const { success, message } = await createProduct(newProduct)
     if (!success) {
-      toast({
+      toaster.create({
         title: "Error",
         description: message,
         status: "error",
       })
     } else {
-      toast({
+      toaster.create({
         title: "Success",
         description: message,
         status: "success",

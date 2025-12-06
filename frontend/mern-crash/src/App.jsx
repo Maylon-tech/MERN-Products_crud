@@ -7,7 +7,7 @@ import CreatePage from './pages/CreatePage'
 import { useProductStore } from './store/product'
 
 function App() {
-  const { products } = useProductStore()
+  // const { products } = useProductStore()
 
   return (
     <Box minH={"100vh"}>

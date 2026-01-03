@@ -1,4 +1,4 @@
-import { Box, HStack, Heading, IconButton, Image, Text, Dialog, Button, Portal, CloseButton } from "@chakra-ui/react"
+import { Box, HStack, Heading, IconButton, Image, Text, Dialog, Button, Portal, CloseButton, useToastStyles, useDisclosure } from "@chakra-ui/react"
 import { useProductStore } from "../store/product"
 import { toaster } from "../components/ui/toaster"
 import { FaEdit } from "react-icons/fa"
@@ -9,6 +9,7 @@ const ProductCard = ({ product }) => {
     // const bg = useColorModeValue("white", "gray.800")
 
     const { deleteProduct } = useProductStore()
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleDeleteProduct = async (pid) => {
         const { success, message } = await deleteProduct(pid)
@@ -59,7 +60,8 @@ const ProductCard = ({ product }) => {
               <HStack spacing={2}>
                   <IconButton 
                     icon={<FaEdit />} 
-                    colorScheme='blue' 
+                      colorScheme='blue' 
+                      onClick={onOpen}
                   />
 
                   <IconButton 
@@ -71,7 +73,7 @@ const ProductCard = ({ product }) => {
           </Box>
 
           <Dialog.Root>
-              <Button variant="outline" size="sm">Open Modal</Button>
+              {/* <Button variant="outline" size="sm">Open Modal</Button> */}
               <Portal>
                     <Dialog.Backdrop />
                     <Dialog.Positioner>

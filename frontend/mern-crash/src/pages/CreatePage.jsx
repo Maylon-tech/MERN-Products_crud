@@ -82,7 +82,9 @@ const CreatePage = () => {
               Add Product
             </Button>
           </VStack>
-
+          <Button colorScheme="green" mt={10}>
+            <Link to="/">Voltar</Link>
+          </Button>
         </Box>
       </VStack>
     </Container>

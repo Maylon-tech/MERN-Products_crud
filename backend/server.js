@@ -13,7 +13,7 @@ app.use("/api/products", productsRoute)
 
 app.listen(PORT, () => {
     connectDB()
-    console.error("Server started at port 5000", PORT)
+    console.error("Server started at port", PORT)
 })
 
 

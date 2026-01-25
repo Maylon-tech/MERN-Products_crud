@@ -1,6 +1,7 @@
 import {
     Box,
     HStack,
+    VStack,
     Heading,
     IconButton,
     Image,
@@ -8,10 +9,11 @@ import {
     Dialog,
     Button,
     Portal,
-    CloseButton,
+    ModalCloseButton,
     useToastStyles,
     useDisclosure,
-
+    Toaster,
+    Modal
 } from "@chakra-ui/react"
 import { useProductStore } from "../store/product"
 import { toaster } from "../components/ui/toaster"
@@ -28,7 +30,7 @@ const ProductCard = ({ product }) => {
     const handleDeleteProduct = async (pid) => {
         const { success, message } = await deleteProduct(pid)
         if(!success) {
-            toaster.create({
+            Toaster.create({
                 title: "Error",
                 description: message,
                 status: "error",
@@ -88,7 +90,36 @@ const ProductCard = ({ product }) => {
             </HStack>
         </Box>
 
-          <Dialog.Root>
+        <Modal
+            isOpen={isOpen} onClose={onClose}
+        >
+            <ModalOverlay />
+            
+            <ModalContent>
+                <ModalHeader>Update Product</ModalHeader>
+                
+                <ModalCloseButton />
+                
+                <ModalBody>      
+                    <VStack spacing={4}>
+                        <Input
+                            placeholder='Product Name'
+                            name='name'                                   
+                        />
+                        <Input
+                            placeholder='Price'
+                            name='price'                                    
+                        />
+                        <Input
+                            placeholder='Image URL'
+                            name='image'                                   
+                        />                                
+                    </VStack>
+                </ModalBody>
+            </ModalContent>
+        </Modal> 
+
+        <Dialog.Root>
               {/* <Button variant="outline" size="sm">Open Modal</Button> */}
               <Portal>
                     <Dialog.Backdrop />
@@ -119,7 +150,7 @@ const ProductCard = ({ product }) => {
                         </Dialog.Content>
                     </Dialog.Positioner>
               </Portal>
-          </Dialog.Root>
+        </Dialog.Root>
     </Box>
   )
 }

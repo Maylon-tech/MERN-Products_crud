@@ -1,4 +1,18 @@
-import { Box, HStack, Heading, IconButton, Image, Text, Dialog, Button, Portal, CloseButton, useToastStyles, useDisclosure } from "@chakra-ui/react"
+import {
+    Box,
+    HStack,
+    Heading,
+    IconButton,
+    Image,
+    Text,
+    Dialog,
+    Button,
+    Portal,
+    CloseButton,
+    useToastStyles,
+    useDisclosure,
+
+} from "@chakra-ui/react"
 import { useProductStore } from "../store/product"
 import { toaster } from "../components/ui/toaster"
 import { FaEdit } from "react-icons/fa"
@@ -35,42 +49,44 @@ const ProductCard = ({ product }) => {
   return (
     <Box
         shadow='lg'
-        rounded='lg'
+        rounded='md'
         overflow='hidden'
         transition='all 0.3s'
         _hover={{ transform: "translateY(-5px)", shadow: 'xl' }}
-        
+        style={{ margin: "15px" }}
     >
-      <Image 
-        src={product.image}
-        alt={product.name}
-        h={48}
-        w='full'
-        objectFit='cover'
-          />
-          <Box p={4}>
-              <Heading as='h3' size='md' mb={2}>
-                  {product.name}
-              </Heading>
-              
-              <Text fontWeight='bold' fontSize='xl'  mb={4}>
-                  ${product.price}
-              </Text>
+        <Image 
+            src={product.image}
+            alt={product.name}
+            h={48}
+            w='full'
+            objectFit='cover'
+        />
+        <Box p={4}>
+            <Heading as='h3' size='md' mb={2}>
+                {product.name}
+            </Heading>
+            
+            <Text fontWeight='bold' fontSize='xl' mb={4}>
+                $ {product.price}
+            </Text>
 
-              <HStack spacing={2}>
-                  <IconButton 
-                    icon={<FaEdit />} 
-                      colorScheme='blue' 
-                      onClick={onOpen}
-                  />
+            <HStack spacing={2}>
+                <IconButton                     
+                    colorScheme='blue'                     
+                    onClick={onOpen}
+                >
+                    <FaEdit color="darkblue" />
+                </IconButton>
 
-                  <IconButton 
-                      icon={<FaTrash />}
-                      colorScheme='red'
-                      onClick={() => handleDeleteProduct(product._id)}
-                  />
-              </HStack>
-          </Box>
+                <IconButton                       
+                    colorScheme='red'                    
+                    onClick={() => handleDeleteProduct(product._id)}
+                >
+                    <FaTrash color="darkblue" />
+                </IconButton>
+            </HStack>
+        </Box>
 
           <Dialog.Root>
               {/* <Button variant="outline" size="sm">Open Modal</Button> */}

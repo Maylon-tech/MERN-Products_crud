@@ -1,6 +1,7 @@
-import { Button, Container, Flex, HStack, Text, useColorMode  } from "@chakra-ui/react"
+import { Button, Container, Flex, HStack, Text  } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
+import { FaPlus } from "react-icons/fa"
 import { FaCartPlus } from "react-icons/fa"
 import { FaSun } from "react-icons/fa"
 import { FaMoon } from "react-icons/fa"
@@ -10,8 +11,7 @@ import { IoSunnyOutline } from "react-icons/io5"
 // import { PlusSquareIcon } from '@chakra-ui/icons'
 
 const Navbar = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
-
+  // const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <Container
@@ -46,18 +46,18 @@ const Navbar = () => {
         <HStack spacing={2} alignItems={"center"}>
           <Link to={"/create"}>
             <Button>
-              <FaCartPlus />
+              <FaPlus />
               Cart
             </Button>
           </Link>
 
-          <Button onClick={toggleColorMode}>
+          {/* <Button onClick={toggleColorMode}>
             {
               colorMode === "light"
                 ? <IoMoon />
                 : <IoSunnyOutline />
             }
-          </Button>
+          </Button> */}
         </HStack>
 
 

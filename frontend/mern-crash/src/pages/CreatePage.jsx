@@ -4,8 +4,10 @@ import { toaster } from "../components/ui/toaster"
 import { FaArrowLeft } from "react-icons/fa"
 import { useState } from "react"
 import { useProductStore } from "../store/product"
+import { useNavigate } from "react-router-dom"
 
 const CreatePage = () => {
+  const navigate = useNavigate()
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
@@ -13,6 +15,7 @@ const CreatePage = () => {
   })
 
   const { createProduct } = useProductStore()
+
   const handleAddProudct = async () => {
     const { success, message } = await createProduct(newProduct)
     if (!success) {
@@ -31,7 +34,8 @@ const CreatePage = () => {
     }
     setNewProduct({ name: "", price: "", image: "" })
     console.log("Success",success)
-    console.log("Message",message)
+    console.log("Message", message)
+    navigate("/")
   }
 
   return (
@@ -42,6 +46,7 @@ const CreatePage = () => {
           size={"2xl"}
           textAlign={"center"}
           mb={8}
+          color="orangered"
         >
           Create New Products
         </Heading>
@@ -77,11 +82,12 @@ const CreatePage = () => {
             <Button
               colorScheme="blue"
               onClick={handleAddProudct}
-              w='full'
+              w='xs'
             >
               Add Product
             </Button>
           </VStack>
+          
           <Button colorScheme="green" mt={10}>
             <Link to="/">Voltar</Link>
           </Button>

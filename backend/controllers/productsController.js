@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import Product from "../models/products.js"
 
 export const getAllProducts = async (req, res) => {

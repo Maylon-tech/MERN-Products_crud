@@ -1,3 +1,4 @@
+import { useState } from "react"
 import {
     Box,
     HStack,
@@ -9,11 +10,16 @@ import {
     Dialog,
     Button,
     Portal,
-    ModalCloseButton,
-    useToastStyles,
-    useDisclosure,
     Toaster,
-    Modal
+    useDisclosure,
+    CloseButton,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
 } from "@chakra-ui/react"
 import { useProductStore } from "../store/product"
 import { toaster } from "../components/ui/toaster"
@@ -23,8 +29,9 @@ import { FaTrash } from "react-icons/fa"
 const ProductCard = ({ product }) => {
     // const textColor = useColorModeValue("gray.600", "gray.200")
     // const bg = useColorModeValue("white", "gray.800")
-
+    const [updatedProduct, setUpdatedProudct] = useState(product)
     const { deleteProduct } = useProductStore()
+
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleDeleteProduct = async (pid) => {
@@ -89,38 +96,39 @@ const ProductCard = ({ product }) => {
                 </IconButton>
             </HStack>
         </Box>
-
-        <Modal
-            isOpen={isOpen} onClose={onClose}
-        >
+        
+        <Modal>
             <ModalOverlay />
             
             <ModalContent>
                 <ModalHeader>Update Product</ModalHeader>
-                
                 <ModalCloseButton />
-                
-                <ModalBody>      
-                    <VStack spacing={4}>
-                        <Input
-                            placeholder='Product Name'
-                            name='name'                                   
+                <ModalBody>
+                    <VStack>
+                        <Input 
+                            placeholder="product name"
+                            name='name'
+                            value={updatedProduct.name}
                         />
-                        <Input
-                            placeholder='Price'
-                            name='price'                                    
+                        <Input 
+                            placeholder="price"
+                            name='price'
+                            type="number"
+                            value={updatedProduct.price}
                         />
-                        <Input
-                            placeholder='Image URL'
-                            name='image'                                   
-                        />                                
+                        <Input 
+                            placeholder="Image URL"
+                            name='image'
+                            value={updatedProduct.image}
+                        />
                     </VStack>
                 </ModalBody>
             </ModalContent>
-        </Modal> 
+        </Modal>
 
-        <Dialog.Root>
-              {/* <Button variant="outline" size="sm">Open Modal</Button> */}
+
+        {/* <Dialog.Root isOpen={isOpen} onClose={onClose}>
+            
               <Portal>
                     <Dialog.Backdrop />
                     <Dialog.Positioner>
@@ -150,7 +158,7 @@ const ProductCard = ({ product }) => {
                         </Dialog.Content>
                     </Dialog.Positioner>
               </Portal>
-        </Dialog.Root>
+        </Dialog.Root>  */}
     </Box>
   )
 }

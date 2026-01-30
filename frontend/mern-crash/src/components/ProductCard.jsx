@@ -1,8 +1,7 @@
-import { useState } from "react"
+
 import {
     Box,
     HStack,
-    VStack,
     Heading,
     IconButton,
     Image,
@@ -11,28 +10,21 @@ import {
     Button,
     Portal,
     Toaster,
-    useDisclosure,
     CloseButton,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
 } from "@chakra-ui/react"
 import { useProductStore } from "../store/product"
 import { toaster } from "../components/ui/toaster"
 import { FaEdit } from "react-icons/fa"
 import { FaTrash } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
 const ProductCard = ({ product }) => {
     // const textColor = useColorModeValue("gray.600", "gray.200")
     // const bg = useColorModeValue("white", "gray.800")
-    const [updatedProduct, setUpdatedProudct] = useState(product)
+    // const [updatedProduct, setUpdatedProudct] = useState(product)
     const { deleteProduct } = useProductStore()
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    // const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleDeleteProduct = async (pid) => {
         const { success, message } = await deleteProduct(pid)
@@ -81,12 +73,13 @@ const ProductCard = ({ product }) => {
             </Text>
 
             <HStack spacing={2}>
-                <IconButton                     
-                    colorScheme='blue'                     
-                    onClick={onOpen}
-                >
-                    <FaEdit color="darkblue" />
-                </IconButton>
+                <Link to="/EditProduct">
+                    <IconButton                     
+                        colorScheme='blue'         
+                    >
+                        <FaEdit color="blue" />
+                    </IconButton>
+                </Link>
 
                 <IconButton                       
                     colorScheme='red'                    
@@ -96,69 +89,6 @@ const ProductCard = ({ product }) => {
                 </IconButton>
             </HStack>
         </Box>
-        
-        <Modal>
-            <ModalOverlay />
-            
-            <ModalContent>
-                <ModalHeader>Update Product</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <VStack>
-                        <Input 
-                            placeholder="product name"
-                            name='name'
-                            value={updatedProduct.name}
-                        />
-                        <Input 
-                            placeholder="price"
-                            name='price'
-                            type="number"
-                            value={updatedProduct.price}
-                        />
-                        <Input 
-                            placeholder="Image URL"
-                            name='image'
-                            value={updatedProduct.image}
-                        />
-                    </VStack>
-                </ModalBody>
-            </ModalContent>
-        </Modal>
-
-
-        {/* <Dialog.Root isOpen={isOpen} onClose={onClose}>
-            
-              <Portal>
-                    <Dialog.Backdrop />
-                    <Dialog.Positioner>
-                        <Dialog.Content>
-                            <Dialog.Header>
-                                <Dialog.Title>Dialog Title</Dialog.Title>
-                            </Dialog.Header>
-                            <Dialog.Body>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                            </Dialog.Body>
-                            
-                            <Dialog.Footer>
-                                <Dialog.ActionTrigger asChild>
-                                    <Button variant="outline">Cancel</Button>
-                                </Dialog.ActionTrigger>
-                                
-                                <Button>Save</Button>
-                            
-                            </Dialog.Footer>
-                            
-                            <Dialog.CloseTrigger asChild>
-                            <CloseButton size="sm" />
-                            </Dialog.CloseTrigger>
-                        </Dialog.Content>
-                    </Dialog.Positioner>
-              </Portal>
-        </Dialog.Root>  */}
     </Box>
   )
 }

@@ -15,8 +15,9 @@ const Navbar = () => {
 
   return (
     <Container
-      maxW={"1140px"}
-      px={4}
+      maxW={"full"}
+      px={20}
+      bg="gray.900"
     >
       <Flex
         h={16}

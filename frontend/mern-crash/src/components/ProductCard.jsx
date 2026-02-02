@@ -54,7 +54,8 @@ const ProductCard = ({ product }) => {
         overflow='hidden'
         transition='all 0.3s'
         _hover={{ transform: "translateY(-5px)", shadow: 'xl' }}
-        style={{ margin: "15px" }}
+          style={{ margin: "15px" }}
+          bg="gray.950"
     >
         <Image 
             src={product.image}
@@ -73,7 +74,9 @@ const ProductCard = ({ product }) => {
             </Text>
 
             <HStack spacing={2}>
-                <Link to="/EditProduct">
+                <Link 
+                    to="/EditProduct"
+                >
                     <IconButton                     
                         colorScheme='blue'         
                     >

@@ -87,7 +87,7 @@ const EditProduct = () => {
               onClick={handleAddProudct}
               w='xs'
             >
-              Add Product
+              Edit Product
             </Button>
           </VStack>
           

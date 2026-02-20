@@ -11,20 +11,22 @@ import {
     Portal,
     Toaster,
     CloseButton,
+    useDisclosure,
 } from "@chakra-ui/react"
 import { useProductStore } from "../store/product"
 import { toaster } from "../components/ui/toaster"
 import { FaEdit } from "react-icons/fa"
 import { FaTrash } from "react-icons/fa"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 const ProductCard = ({ product }) => {
     // const textColor = useColorModeValue("gray.600", "gray.200")
     // const bg = useColorModeValue("white", "gray.800")
-    // const [updatedProduct, setUpdatedProudct] = useState(product)
+    const [updatedProduct, setUpdatedProudct] = useState(product)
     const { deleteProduct } = useProductStore()
 
-    // const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleDeleteProduct = async (pid) => {
         const { success, message } = await deleteProduct(pid)
@@ -45,6 +47,12 @@ const ProductCard = ({ product }) => {
                 isClosable: true,
             })
         }
+        confirm("Deleted OK!")
+    }
+
+    const handleUpdateProduct = async (pid, updateProduct) => {
+        await updateProduct(pid, updateProduct)
+        onClose()
     }
 
   return (

@@ -11,7 +11,7 @@ import {
     Portal,
     Toaster,
     CloseButton,
-    useDisclosure,
+    For,
 } from "@chakra-ui/react"
 import { useProductStore } from "../store/product"
 import { toaster } from "../components/ui/toaster"
@@ -21,12 +21,13 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 
 const ProductCard = ({ product }) => {
+    const [modal, setModal] = useState(false)
     // const textColor = useColorModeValue("gray.600", "gray.200")
     // const bg = useColorModeValue("white", "gray.800")
     const [updatedProduct, setUpdatedProudct] = useState(product)
     const { deleteProduct } = useProductStore()
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    // const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleDeleteProduct = async (pid) => {
         const { success, message } = await deleteProduct(pid)
@@ -52,7 +53,6 @@ const ProductCard = ({ product }) => {
 
     const handleUpdateProduct = async (pid, updateProduct) => {
         await updateProduct(pid, updateProduct)
-        onClose()
     }
 
   return (
@@ -81,17 +81,14 @@ const ProductCard = ({ product }) => {
                 $ {product.price}
             </Text>
 
-            <HStack spacing={2}>
-                <Link 
-                    to="/EditProduct"
+            <HStack spacing={2}>            
+                <IconButton                     
+                    colorScheme='blue'  
+                    onClick={() => setModal(!modal)}       
                 >
-                    <IconButton                     
-                        colorScheme='blue'         
-                    >
-                        <FaEdit color="blue" />
-                    </IconButton>
-                </Link>
-
+                    <FaEdit color="blue" />
+                </IconButton>
+               
                 <IconButton                       
                     colorScheme='red'                    
                     onClick={() => handleDeleteProduct(product._id)}
@@ -100,6 +97,48 @@ const ProductCard = ({ product }) => {
                 </IconButton>
             </HStack>
         </Box>
+
+        {/* MODAL */}
+
+          {
+              modal && (
+                  <HStack>
+              
+                        <Dialog.Root>
+                            <Dialog.Trigger asChild>
+                            
+                            </Dialog.Trigger>
+                            <Portal>
+                            <Dialog.Backdrop />
+                            <Dialog.Positioner>
+                                <Dialog.Content>
+                                <Dialog.Header>
+                                    <Dialog.Title>Editing eatch Card Product</Dialog.Title>
+                                </Dialog.Header>
+                                <Dialog.Body>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Sed do eiusmod tempor incididunt ut labore et dolore magna
+                                        aliqua.
+                                    </p>
+                                </Dialog.Body>
+                                <Dialog.Footer>
+                                    <Dialog.ActionTrigger asChild>
+                                    <Button variant="outline">Cancel</Button>
+                                    </Dialog.ActionTrigger>
+                                    <Button>Save</Button>
+                                </Dialog.Footer>
+                                <Dialog.CloseTrigger asChild>
+                                    <CloseButton size="sm" />
+                                </Dialog.CloseTrigger>
+                                </Dialog.Content>
+                            </Dialog.Positioner>
+                            </Portal>
+                        </Dialog.Root>
+                        
+                </HStack>
+              )
+        }
     </Box>
   )
 }

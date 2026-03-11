@@ -19,15 +19,17 @@ import { FaEdit } from "react-icons/fa"
 import { FaTrash } from "react-icons/fa"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import Modal from "./Modal"
 
-const ProductCard = ({ product }) => {
-    const [modal, setModal] = useState(false)
+const ProductCard = ({ product, openModal }) => {
+
     // const textColor = useColorModeValue("gray.600", "gray.200")
     // const bg = useColorModeValue("white", "gray.800")
     const [updatedProduct, setUpdatedProudct] = useState(product)
     const { deleteProduct } = useProductStore()
 
     // const { isOpen, onOpen, onClose } = useDisclosure()
+
 
     const handleDeleteProduct = async (pid) => {
         const { success, message } = await deleteProduct(pid)
@@ -84,7 +86,7 @@ const ProductCard = ({ product }) => {
             <HStack spacing={2}>            
                 <IconButton                     
                     colorScheme='blue'  
-                    onClick={() => setModal(!modal)}       
+                    onClick={() => openModal(true)}
                 >
                     <FaEdit color="blue" />
                 </IconButton>
@@ -98,47 +100,10 @@ const ProductCard = ({ product }) => {
             </HStack>
         </Box>
 
-        {/* MODAL */}
+        {/* MODAL */}         
 
-          {
-              modal && (
-                  <HStack>
-              
-                        <Dialog.Root>
-                            <Dialog.Trigger asChild>
-                            
-                            </Dialog.Trigger>
-                            <Portal>
-                            <Dialog.Backdrop />
-                            <Dialog.Positioner>
-                                <Dialog.Content>
-                                <Dialog.Header>
-                                    <Dialog.Title>Editing eatch Card Product</Dialog.Title>
-                                </Dialog.Header>
-                                <Dialog.Body>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Sed do eiusmod tempor incididunt ut labore et dolore magna
-                                        aliqua.
-                                    </p>
-                                </Dialog.Body>
-                                <Dialog.Footer>
-                                    <Dialog.ActionTrigger asChild>
-                                    <Button variant="outline">Cancel</Button>
-                                    </Dialog.ActionTrigger>
-                                    <Button>Save</Button>
-                                </Dialog.Footer>
-                                <Dialog.CloseTrigger asChild>
-                                    <CloseButton size="sm" />
-                                </Dialog.CloseTrigger>
-                                </Dialog.Content>
-                            </Dialog.Positioner>
-                            </Portal>
-                        </Dialog.Root>
-                        
-                </HStack>
-              )
-        }
+          
+          
     </Box>
   )
 }

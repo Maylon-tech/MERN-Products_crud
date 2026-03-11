@@ -1,16 +1,20 @@
 import { Container, VStack, Text, SimpleGrid } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useProductStore } from '../store/product'
 import ProductCard from '../components/ProductCard'
+import Modal from '../components/Modal'
 
 const HomePage = () => {
+   const [modal, setModal] = useState(false)
 
   const { fetchProducts, products } = useProductStore()
   useEffect(() => {
     fetchProducts()
   }, [fetchProducts])
   
+  const handleOpenModal = () => setModal(true)
+   
   return (
     <Container maxW='contanier.xl' py={12}>
       <VStack spacing={8}>
@@ -33,16 +37,22 @@ const HomePage = () => {
           }}
           spacing={10}
           w={"full"}
+          style={{ position:"relative"}}
         >
           {
             products.map((product) => (
               <ProductCard
                 key={product._id}
                 product={product}
+                openModal={handleOpenModal}
               />
             ))
           }
         </SimpleGrid>
+
+        {
+          modal && <Modal modal={setModal}  />
+        }
 
         {
           products.length === 0 && (

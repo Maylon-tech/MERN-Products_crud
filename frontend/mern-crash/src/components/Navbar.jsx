@@ -40,7 +40,7 @@ const Navbar = () => {
             to={"/"}
             style={{ color: "#eee", fontSize: "20px"}}
           >
-            Product Store
+            Product Store - Codesistency
           </Link>
         </Text>
 

@@ -4,17 +4,37 @@ import { Link } from 'react-router-dom'
 import { useProductStore } from '../store/product'
 import ProductCard from '../components/ProductCard'
 import Modal from '../components/Modal'
+import { toaster } from '../components/ui/toaster'
 
 const HomePage = () => {
-   const [modal, setModal] = useState(false)
-
-  const { fetchProducts, products } = useProductStore()
+  const [updatedProduct, setUpdatedProduct] = useState()
+  const [modal, setModal] = useState(false)
+  const { fetchProducts, products, updateProduct } = useProductStore()
+  
   useEffect(() => {
     fetchProducts()
   }, [fetchProducts])
-  
+
   const handleOpenModal = () => setModal(true)
    
+  const handleUpdateProduct = async (pid, updatedProduct) => {
+    const { success, message } = await updateProduct(pid, updatedProduct)
+    if (!success) {
+      toaster.create({
+        title: "Error",
+        description: message,
+        status: "error",
+      })
+    } else {
+      toaster.create({
+        title: "Success",
+        description: message,
+        status: "success",
+        isClosable: true,
+      })
+    }
+  }
+
   return (
     <Container maxW='contanier.xl' py={12}>
       <VStack spacing={8}>
@@ -51,7 +71,13 @@ const HomePage = () => {
         </SimpleGrid>
 
         {
-          modal && <Modal modal={setModal}  />
+          modal &&
+          <Modal
+            modal={setModal}
+            updatedProduct={updatedProduct}
+            handleUpdateProduct={handleUpdateProduct}
+            setUpdatedProduct={setUpdatedProduct}
+          />
         }
 
         {

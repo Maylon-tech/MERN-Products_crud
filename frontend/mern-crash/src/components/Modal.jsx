@@ -2,7 +2,7 @@ import { Box, Button, HStack, Input, Text, VStack } from '@chakra-ui/react'
 import '../index.css'
 
 
-const Modal = ({ modal }) => {
+const Modal = ({ modal, updatedProduct, handleUpdateProduct, setUpdatedProduct }) => {
 
     const hancleCloseModal = () => {
         modal(false)
@@ -29,17 +29,21 @@ const Modal = ({ modal }) => {
 
             <VStack spacing={4}>
                   
-             <Input
+            <Input
                 placeholder='Product Name'
-                name='name'               
+                name='name'    
+                value={updatedProduct.name}   
+                onChange={(e) => setUpdatedProduct({...updatedProduct, name: e.target.value })}        
             />
             <Input
                 placeholder='Product Name'
-                name='price'               
+                name='price'  
+                value={updatedProduct.price}             
             />
             <Input
                 placeholder='Product Name'
-                name='image'               
+                name='image'         
+                value={updatedProduct.image}      
             />
 {/*
             <Input
@@ -58,16 +62,21 @@ const Modal = ({ modal }) => {
 */}
             <HStack className='action-btn'>    
                 <Button
-                   
+                   bgColor="blue"     
+                   color="white" 
+                   w='100px'
+                   mr="3"           
+                //    onClick={handleUpdate}
                 >
                     Editar
                 </Button> 
                 
                 <Button
-                   
+                    bgColor="red"   
+                    color="white"                 
                     onClick={hancleCloseModal}
                 >
-                    Fechar
+                    Cancelar
                 </Button>
             </HStack>
             </VStack>

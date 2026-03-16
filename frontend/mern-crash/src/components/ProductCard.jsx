@@ -25,7 +25,7 @@ const ProductCard = ({ product, openModal }) => {
 
     // const textColor = useColorModeValue("gray.600", "gray.200")
     // const bg = useColorModeValue("white", "gray.800")
-    const [updatedProduct, setUpdatedProudct] = useState(product)
+    
     const { deleteProduct } = useProductStore()
 
     // const { isOpen, onOpen, onClose } = useDisclosure()
@@ -98,12 +98,7 @@ const ProductCard = ({ product, openModal }) => {
                     <FaTrash color="darkblue" />
                 </IconButton>
             </HStack>
-        </Box>
-
-        {/* MODAL */}         
-
-          
-          
+        </Box>                
     </Box>
   )
 }
